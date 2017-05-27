@@ -9,7 +9,7 @@ final class Routes: RouteCollection {
         }
 
         builder.get("plaintext") { req in
-            return "Hello, world! Updated"
+            return "Hello, world! Thank you for playing!"
         }
         
         // response to requests to /info domain
