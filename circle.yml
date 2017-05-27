@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/swift-ecs-ecr
     docker:
-      - image: addli/swift:latest
+      - image: addli/swift:latest # Installed pip,aws-cli,jq and docker-client
     branches:
       only:
         - master

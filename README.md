@@ -6,6 +6,8 @@ This is a "Hello World" Swift webapp that provides an example of how to build an
 web application on [CircleCI](https://circleci.com), push to an AWS EC2 Container Registry, and then deploy to an AWS 
 EC2 Container Service cluster.
 
+This project origin is [here](https://github.com/circleci/go-ecs-ecr). Thanks CircleCI.
+
 ## Prerequisites
 
 This example utilizes AWS information that you wouldn't really want public. You'll need to 
