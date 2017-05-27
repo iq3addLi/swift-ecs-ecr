@@ -16,10 +16,6 @@ jobs:
           command: |
             cat /etc/issue
       - run:
-          name: Deploy image
-          command: |
-            ./deploy.sh
-      - run:
           name: Run build tests
           command: |
             swift package clean
