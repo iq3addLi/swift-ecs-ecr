@@ -1,6 +1,7 @@
 # Deploy to AWS ECS from ECR via CircleCI 2.0(Example Project)
-[![CircleCI](https://circleci.com/gh/iq3addLi/swift-ecs-ecr/tree/master.svg?style=shield))](https://circleci.com/gh/iq3addLi/swift-ecs-ecr/tree/master)
+[![CircleCI](https://circleci.com/gh/iq3addLi/swift-ecs-ecr/tree/master.svg?style=shield)](https://circleci.com/gh/iq3addLi/swift-ecs-ecr/tree/master)
 ![Swift 3.1](https://img.shields.io/badge/Swift-3.1-orange.svg)
+
 This is a "Hello World" Swift webapp that provides an example of how to build and test a Dockerized 
 web application on [CircleCI](https://circleci.com), push to an AWS EC2 Container Registry, and then deploy to an AWS 
 EC2 Container Service cluster.
