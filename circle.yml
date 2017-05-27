@@ -10,7 +10,6 @@ jobs:
         - master
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           name: show environments
           command: |
@@ -21,15 +20,16 @@ jobs:
             swift package clean
             swift build
       - run:
-          name: Build Docker image
+          name: Build image
           command: |
             docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-sample-webapp:$CIRCLE_SHA1 .
       - run:
-          name: Test Docker container
+          name: Test container
           command: |
             docker run -d -p 8080:8080 --name swift-sample-webapp-container $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-sample-webapp:$CIRCLE_SHA1;sleep 10
-            curl --retry 10 --retry-delay 5 localhost:8080/plaintext | grep "Hello, world!"
+            docker exec swift-sample-webapp-container curl --retry 10 --retry-delay 5 localhost:8080/plaintext | grep 'Hello, world!'
       - run:
-          name: Push Docker image
+          name: Push image
           command: |
+            eval $(aws ecr get-login --region us-east-1)
             docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-sample-webapp:$CIRCLE_SHA1
