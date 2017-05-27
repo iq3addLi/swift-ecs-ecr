@@ -15,6 +15,7 @@ jobs:
           name: show environments
           command: |
             cat /etc/issue
+            env
       - run:
           name: Run build tests
           command: |
