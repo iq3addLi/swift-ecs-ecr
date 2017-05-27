@@ -1,0 +1,19 @@
+{
+  "name": "swift-ecs-ecr",
+  "version": "1.0.0",
+  "description": "This is a \"Hello World\" Swift webapp that provides an example of how to build and test a Dockerized  web application on [CircleCI](https://circleci.com), push to an AWS EC2 Container Registry, and then deploy to an AWS  EC2 Container Service cluster.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iq3addLi/swift-ecs-ecr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iq3addLi/swift-ecs-ecr/issues"
+  },
+  "homepage": "https://github.com/iq3addLi/swift-ecs-ecr#readme"
+}
