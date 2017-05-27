@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    # Should be use releative path when build on local machine.
     working_directory: ~/swift-ecs-ecr
     docker:
       - image: addli/swift:latest
