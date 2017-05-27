@@ -10,6 +10,7 @@ jobs:
         - master
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: show environments
           command: |
