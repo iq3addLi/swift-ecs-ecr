@@ -24,12 +24,12 @@ jobs:
           name: Build image
           command: |
             docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-sample-webapp:$CIRCLE_SHA1 .
-#      - run:
-#          name: Test container
-#          command: |
-#            docker run -d -p 8080:8080 --name swift-sample-webapp-container $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-sample-webapp:$CIRCLE_SHA1;sleep 3
-#            docker run --network container:swift-sample-webapp-container appropriate/curl --retry 10 --retry-delay 5 http://localhost:8080/plaintext
+      - run:
+          name: Test container
+          command: |
+            docker run -d -p 8080:8080 --name swift-sample-webapp-container $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-sample-webapp:$CIRCLE_SHA1;sleep 3
+            docker run --network container:swift-sample-webapp-container appropriate/curl --retry 10 --retry-delay 5 http://localhost:8080/plaintext
       - run:
           name: Deploy image
           command: |
-            ./deploy.sh
+            sleep 3;./deploy.sh
