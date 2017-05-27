@@ -15,7 +15,10 @@ jobs:
           name: show environments
           command: |
             cat /etc/issue
-            env
+      - run:
+          name: Deploy image
+          command: |
+            ./deploy.sh
       - run:
           name: Run build tests
           command: |
