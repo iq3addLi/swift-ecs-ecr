@@ -1,21 +1,18 @@
+// swift-tools-version:4.0
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
     name: "swift-ecs-ecr",
-    targets: [
-        Target(name: "App"),
-        Target(name: "Run", dependencies: ["App"]),
-    ],
     dependencies: [
-        .Package(url: "https://github.com/vapor/vapor.git", majorVersion: 2),
-        .Package(url: "https://github.com/vapor/fluent-provider.git", majorVersion: 1)
+        .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "2.2.0") ),
+        .package(url: "https://github.com/vapor/fluent-provider.git", .upToNextMajor(from: "1.2.0") )
     ],
-    exclude: [
-        "Config",
-        "Database",
-        "Localization",
-        "Public",
-        "Resources",
-    ]
+    targets: [
+        .target(name: "App", dependencies: ["Vapor","FluentProvider"]),
+        .target(name: "Run", dependencies: ["App"]),
+    ],
+    swiftLanguageVersions: [4]
 )
 
