@@ -11,7 +11,7 @@ configure_aws_cli(){
 
 deploy_cluster() {
 
-    family="swift-webapp-task-family"
+    family="swift-ecs-ecr-task"
 
     make_task_def
     register_definition
@@ -42,7 +42,7 @@ make_task_def(){
 	task_template='[
 		{
 			"name": "swift-ecs-ecr",
-			"image": "%s.dkr.ecr.us-east-1.amazonaws.com/swift-ecs-ecr:%s",
+			"image": "%s.dkr.ecr.ap-northeast-1.amazonaws.com/swift-ecs-ecr:%s",
 			"essential": true,
 			"memory": 300,
 			"cpu": 1,
@@ -59,8 +59,8 @@ make_task_def(){
 }
 
 push_ecr_image(){
-	eval $(aws ecr get-login --region us-east-1)
-	docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1
+	eval $(aws ecr get-login --region ap-northeast-1)
+	docker push $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1
 }
 
 register_definition() {
