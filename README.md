@@ -17,6 +17,7 @@ configure a few CircleCI environment variables before the deploy script will wor
 AWS_ACCOUNT_ID
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
+AWS_DEFAULT_REGION
 ```
 
 Additionally, an EC2 Container Service cluster and EC2 Container Registry must already be set up 
