@@ -10,6 +10,7 @@ configure_aws_cli(){
 }
 
 push_ecr_image(){
+    echo "target tag name is $CIRCLE_SHA1"
     # see https://github.com/aws/aws-cli/issues/1926
     eval $(aws ecr get-login --region ap-northeast-1 | sed -e 's/-e none//g')
     docker push $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1
