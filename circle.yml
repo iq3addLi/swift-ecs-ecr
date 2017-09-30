@@ -14,6 +14,9 @@ jobs:
           name: show environments
           command: |
             cat /etc/issue
+            swift --version
+            aws --version
+            docker version
       - run:
           name: Run build tests
           command: |

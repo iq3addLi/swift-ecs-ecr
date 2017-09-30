@@ -9,6 +9,12 @@ configure_aws_cli(){
 	aws configure set default.output json
 }
 
+push_ecr_image(){
+    # see https://github.com/aws/aws-cli/issues/1926
+    eval $(aws ecr get-login --region ap-northeast-1 | sed -e 's/-e none//g')
+    docker push $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1
+}
+
 deploy_cluster() {
 
     family="swift-ecs-ecr-task"
@@ -58,20 +64,13 @@ make_task_def(){
 	task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1)
 }
 
-push_ecr_image(){
-	eval $(aws ecr get-login --region ap-northeast-1)
-	docker push $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1
-}
-
 register_definition() {
-
     if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
         return 1
     fi
-
 }
 
 configure_aws_cli
