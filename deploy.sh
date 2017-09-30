@@ -48,7 +48,7 @@ make_task_def(){
 	task_template='[
 		{
 			"name": "swift-ecs-ecr",
-			"image": "%s.dkr.ecr.$s.amazonaws.com/swift-ecs-ecr:%s",
+			"image": "%s.dkr.ecr.%s.amazonaws.com/swift-ecs-ecr:%s",
 			"essential": true,
 			"memory": 300,
 			"cpu": 1,
