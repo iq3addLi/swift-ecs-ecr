@@ -25,15 +25,13 @@ jobs:
       - run:
           name: Build image
           command: |
-            docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1 .
+            docker build -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1 .
       - run:
           name: Test container
           command: |
-            docker run -d -p 8080:8080 --name swift-ecs-ecr $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1;sleep 3
+            docker run -d -p 8080:8080 --name swift-ecs-ecr $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1;sleep 3
             docker run --network container:swift-ecs-ecr appropriate/curl --retry 10 --retry-delay 5 http://localhost:8080/plaintext
       - run:
           name: Deploy image
           command: |
             sleep 3;./deploy.sh
-              environment:
-                CIRCLE_SHA1: $CIRCLE_SHA1

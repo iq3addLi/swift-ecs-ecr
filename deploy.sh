@@ -5,16 +5,14 @@ JQ="jq --raw-output --exit-status"
 
 configure_aws_cli(){
 	aws --version
-	aws configure set default.region ap-northeast-1
+	aws configure set default.region $AWS_DEFAULT_REGION
 	aws configure set default.output json
 }
 
 push_ecr_image(){
-    echo "target tag name is $CIRCLE_SHA1"
     # see https://github.com/aws/aws-cli/issues/1926
-    eval $(aws ecr get-login --region ap-northeast-1 | sed -e 's/-e none//g')
-    docker images
-    docker push $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1
+    eval $(aws ecr get-login --region $AWS_DEFAULT_REGION | sed -e 's/-e none//g')
+    docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/swift-ecs-ecr:$CIRCLE_SHA1
 }
 
 deploy_cluster() {
@@ -50,7 +48,7 @@ make_task_def(){
 	task_template='[
 		{
 			"name": "swift-ecs-ecr",
-			"image": "%s.dkr.ecr.ap-northeast-1.amazonaws.com/swift-ecs-ecr:%s",
+			"image": "%s.dkr.ecr.$s.amazonaws.com/swift-ecs-ecr:%s",
 			"essential": true,
 			"memory": 300,
 			"cpu": 1,
@@ -63,7 +61,7 @@ make_task_def(){
 		}
 	]'
 	
-	task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $CIRCLE_SHA1)
+	task_def=$(printf "$task_template" $AWS_ACCOUNT_ID $AWS_DEFAULT_REGION $CIRCLE_SHA1)
 }
 
 register_definition() {
